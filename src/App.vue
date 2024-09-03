@@ -10,6 +10,7 @@
 // }
 
 import { ref, computed, watch } from "vue";
+import SonView from "@/components/SonView.vue";
 
 const count = ref(0);
 const setCount = () => {
@@ -49,6 +50,11 @@ watch(() => t.value.age,
     () => {
       console.log('只监听age变换')
     })
+
+const msg = ref('Father Message')
+const getMessage = (msg) => {
+  console.log(msg)
+}
 </script>
 
 <template>
@@ -58,6 +64,8 @@ watch(() => t.value.age,
 
   <main>
     <button @click="setCount">{{ watchData }}</button>
+    <!-- 1. @pass-data -->
+    <SonView :message="msg" @pass-data="getMessage"></SonView>
   </main>
 </template>
 
