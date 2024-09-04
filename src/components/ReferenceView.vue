@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import CommunicateView from "@/components/CommunicateView.vue";
 // 1. 声明
 const h1Ref = ref(null)
 
@@ -23,6 +24,8 @@ defineExpose({
 <template>
   <!--2、绑定ref-->
   <h1 ref="h1Ref">我是h1标签</h1>
+  <!-- 跨多层通信 provide，inject -->
+  <communicate-view>communicate view</communicate-view>
 </template>
 
 <style scoped>

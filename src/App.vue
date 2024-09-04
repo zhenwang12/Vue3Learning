@@ -9,7 +9,7 @@
 //   state.count++
 // }
 
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, provide } from "vue";
 import SonView from "@/components/SonView.vue";
 import ReferenceView from "@/components/ReferenceView.vue";
 
@@ -61,6 +61,18 @@ const referenceRef = ref(null)
 onMounted(() => {
   console.log(referenceRef.value)
 })
+
+// 1. 跨多层通信 传递基本数据
+const message = 'Basic String'
+provide('passing-to-grandson', message)
+// 传递响应式数据
+const messageRef = ref(1000)
+provide('passing-ref-data', messageRef)
+// 传递的数据不能直接修改，传递修改数据的方法
+const changeMessageRef = () => {
+  messageRef.value++
+}
+provide('change-message-fn', changeMessageRef)
 </script>
 
 <template>
@@ -72,7 +84,7 @@ onMounted(() => {
     <button @click="setCount">{{ watchData }}</button>
     <!-- 1. @pass-data -->
     <SonView :message="msg" @pass-data="getMessage"></SonView>
-    <reference-view ref="referenceRef"></reference-view>
+    <reference-view ref="referenceRef">通信传递</reference-view>
   </main>
 </template>
 
