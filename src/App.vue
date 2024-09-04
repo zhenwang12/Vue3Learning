@@ -9,8 +9,9 @@
 //   state.count++
 // }
 
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import SonView from "@/components/SonView.vue";
+import ReferenceView from "@/components/ReferenceView.vue";
 
 const count = ref(0);
 const setCount = () => {
@@ -55,6 +56,11 @@ const msg = ref('Father Message')
 const getMessage = (msg) => {
   console.log(msg)
 }
+
+const referenceRef = ref(null)
+onMounted(() => {
+  console.log(referenceRef.value)
+})
 </script>
 
 <template>
@@ -66,6 +72,7 @@ const getMessage = (msg) => {
     <button @click="setCount">{{ watchData }}</button>
     <!-- 1. @pass-data -->
     <SonView :message="msg" @pass-data="getMessage"></SonView>
+    <reference-view ref="referenceRef"></reference-view>
   </main>
 </template>
 
